@@ -1,7 +1,9 @@
 import { useEffect, useState, } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, useUsuarioApi } from "../../hooks"
 import { NavBar } from "../../components";
 import { useNavigate } from "react-router-dom";
+import imagenMario from '../../assets/Mario.png'
 import './styles.css'
 
 

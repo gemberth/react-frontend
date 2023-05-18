@@ -17,7 +17,7 @@ export const useAuthStore= () => {
 
             localStorage.setItem('token', data.token)
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({nombres: data.nombres, id: data.id_usuario}))
+            dispatch(onLogin({nombres: data.usuario.nombre, id: data.usuario._id}))
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'));
             setTimeout(() => {
@@ -34,7 +34,7 @@ export const useAuthStore= () => {
             const {data} = await nutricionApi.get('/usuario/token/renovarToken')
             localStorage.setItem('token', data.token)
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({nombres: data.nombres, id: data.id_usuario}))
+            dispatch(onLogin({nombres: data.usuario.nombre, id: data.usuario._id}))
         } catch (error) {
             localStorage.clear();
             dispatch(onLogout());

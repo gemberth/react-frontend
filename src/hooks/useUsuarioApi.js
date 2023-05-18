@@ -22,7 +22,7 @@ export const useUsuarioApi= () => {
     const guardar = async(newData) => {
         console.log(newData)
         try {
-            const {data} = await nutricionApi.post('/usuario/guardar')
+            const {data} = await nutricionApi.post('/usuario/crear')
             return data
         } catch (error) {
             let data = {}
@@ -40,9 +40,21 @@ export const useUsuarioApi= () => {
         }
     }
 
+       // metodo de editar
+       const actualizar = async(id,newData) => {
+        try {
+            const {data} = await nutricionApi.put(`/usuario/${id}`,{...newData})
+            return data
+        } catch (error) {
+            let data = {}
+            data.errorMsg = "Error al traer el registro"
+        }
+    }
+
     return {
         guardar,
         traerTodos,
-        traerPorId
+        traerPorId,
+        actualizar
     }
 }

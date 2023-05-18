@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const loginFormFields = {
     nombre: '',
     edad: 0,
+    fechaNacimiento: new Date(),
     email: '',
     password: '',
     pesoInicial: 0,
@@ -30,11 +31,11 @@ export const RegisterPage = () => {
     }, [errorMsg])
 
 
-    const { nombre, edad, email, password, pesoInicial, onInputChange } = useForm(loginFormFields);
+    const { nombre, edad,fechaNacimiento, email, password, pesoInicial, onInputChange } = useForm(loginFormFields);
 
     const registerSubmit = (e) => {
         e.preventDefault();
-        startRegister({ nombre, edad, email, password, pesoInicial })
+        startRegister({ nombre, edad,fechaNacimiento, email, password, pesoInicial })
         navigate('/auth/login')
     }
 
@@ -61,9 +62,22 @@ export const RegisterPage = () => {
                                     className="form-control"
                                     placeholder="Edad"
                                     name='edad'
-                                    value={edad}
+                                    // value={edad}
                                     onChange={onInputChange}
                                 />
+                            </div>
+                            <div className="form-group mb-2">
+                            <label for="birthdate">Fecha de nacimiento:</label>
+                            <div class="input-group">
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    placeholder="Fecha de nacimiento"
+                                    name='fechaNacimiento'
+                                    // value={edad}
+                                    onChange={onInputChange}
+                                />
+                                </div>
                             </div>
                             <div className="form-group mb-2">
                                 <input
@@ -91,7 +105,7 @@ export const RegisterPage = () => {
                                     className="form-control"
                                     placeholder="Peso"
                                     name='pesoInicial'
-                                    value={pesoInicial}
+                                    // value={pesoInicial}
                                     onChange={onInputChange}
                                 />
                             </div>

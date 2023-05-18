@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useUsuarioApi, useForm } from "../../hooks";
+import { useRecetaApi, useForm } from "../../hooks";
 import { NavBar } from "../../components";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
@@ -15,16 +15,16 @@ import swal from "sweetalert2";
    
 // }
 
-export const EditarUsuarioPage = () => {
+export const EditarRecetaPage = () => {
     const navigate = useNavigate()
 
-    const {guardar, traerPorId, actualizar} = useUsuarioApi()
+    const {guardar, traerPorId, actualizar} = useRecetaApi()
     const [recetaSeleccionado, setrecetaSeleccionado] = useState({
-        nombre: '',
-        edad: '',
-        fechaNacimiento: '',
-        email: '',
-        // lfoto: '',
+        descripcion: '',
+        caloria: '',
+        categoria: '',
+        preparacion: '',
+        lfoto: '',
     })
     const params = useParams();
     const onInputChanged = ({ target }) => {
@@ -33,15 +33,6 @@ export const EditarUsuarioPage = () => {
             [target.name]: target.value
         })
     }
-
-    const onDateChanged = ( event, changing ) => {
-      setFormValues({
-          ...formValues,
-          [changing]: event
-      })
-  }
-
-  
     useEffect(() => {
  
         traerPorIdApi()
@@ -50,14 +41,14 @@ export const EditarUsuarioPage = () => {
     const registerSubmit = (e) => {
         e.preventDefault();
         actualizar(params.id,recetaSeleccionado)
-        navigate('/user')
+        navigate('/receta/new')
     }
     const traerPorIdApi = async() => {
         console.log(params.id)
         let data = await traerPorId(params.id)
 
         console.log(data)
-        setrecetaSeleccionado(data.usuario)
+        setrecetaSeleccionado(data.receta)
         // Swal.fire({
         //     icon: 'error',
         //     title: 'Oops...',
@@ -79,19 +70,19 @@ export const EditarUsuarioPage = () => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Nombre"
-                                    name='nombre'
-                                    value={recetaSeleccionado.nombre}
+                                    placeholder="Descripcion"
+                                    name='descripcion'
+                                    value={recetaSeleccionado.descripcion}
                                     onChange={onInputChanged}
                                 />
                             </div>
                             <div className="form-group mb-2">
                                 <input
-                                    type="number"
+                                    type="text"
                                     className="form-control"
-                                    placeholder="Edad"
-                                    name='edad'
-                                    value={recetaSeleccionado.edad}
+                                    placeholder="Calorias"
+                                    name='caloria'
+                                    value={recetaSeleccionado.caloria}
                                     onChange={onInputChanged}
                                 />
                             </div>
@@ -99,11 +90,11 @@ export const EditarUsuarioPage = () => {
                             
                             <div class="input-group">
                                 <input
-                                    type="date"
+                                    type="text"
                                     className="form-control"
-                                    placeholder="fechaNacimiento"
-                                    name='fechaNacimiento'
-                                    value={recetaSeleccionado.fechaNacimiento}
+                                    placeholder="Categoria"
+                                    name='categoria'
+                                    value={recetaSeleccionado.categoria}
                                     onChange={onInputChanged}
                                 />
                                 </div>
@@ -112,13 +103,22 @@ export const EditarUsuarioPage = () => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Email"
-                                    name='email'
-                                    value={recetaSeleccionado.email}
+                                    placeholder="Preparacion"
+                                    name='preparacion'
+                                    value={recetaSeleccionado.preparacion}
                                     onChange={onInputChanged}
                                 />
                             </div>
-                                                     
+                            <div className="form-group mb-2">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Foto"
+                                    name='lfoto'
+                                    value={recetaSeleccionado.lfoto}
+                                    onChange={onInputChanged}
+                                />
+                            </div>                            
                             <div className="d-grid gap-2">
                                 <input
                                     type="submit"
